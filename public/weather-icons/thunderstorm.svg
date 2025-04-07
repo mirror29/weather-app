@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cloud -->
+  <path d="M52 28C52 35.732 45.732 42 38 42H16C9.373 42 4 36.627 4 30C4 23.373 9.373 18 16 18C16.743 18 17.47 18.069 18.177 18.202C19.858 11.07 26.252 6 33.815 6C42.407 6 49.39 12.782 49.962 21.285C51.29 22.936 52 25.097 52 27.5V28Z" fill="#78909C" stroke="#546E7A" stroke-width="2"/>
+  <!-- Lightning Bolt -->
+  <path d="M32 36L24 50H32L28 62L44 46H34L40 36H32Z" fill="#FFEB3B" stroke="#FBC02D" stroke-width="1" stroke-linejoin="round"/>
+  <!-- Rain -->
+  <path d="M18 42L14 48" stroke="#4A9CE2" stroke-width="2" stroke-linecap="round"/>
+  <path d="M24 42L20 48" stroke="#4A9CE2" stroke-width="2" stroke-linecap="round"/>
+  <path d="M46 42L42 48" stroke="#4A9CE2" stroke-width="2" stroke-linecap="round"/>
+</svg>

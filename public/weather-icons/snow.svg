@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M52 28C52 35.732 45.732 42 38 42H16C9.373 42 4 36.627 4 30C4 23.373 9.373 18 16 18C16.743 18 17.47 18.069 18.177 18.202C19.858 11.07 26.252 6 33.815 6C42.407 6 49.39 12.782 49.962 21.285C51.29 22.936 52 25.097 52 27.5V28Z" fill="#E6E6E6" stroke="#AAAAAA" stroke-width="2"/>
+  <!-- Snowflakes -->
+  <circle cx="20" cy="50" r="2" fill="#FFFFFF" stroke="#AAAAAA" />
+  <path d="M20 46L20 54" stroke="#AAAAAA" stroke-width="1" />
+  <path d="M16 50L24 50" stroke="#AAAAAA" stroke-width="1" />
+  <path d="M17 47L23 53" stroke="#AAAAAA" stroke-width="1" />
+  <path d="M23 47L17 53" stroke="#AAAAAA" stroke-width="1" />
+
+  <circle cx="32" cy="52" r="2" fill="#FFFFFF" stroke="#AAAAAA" />
+  <path d="M32 48L32 56" stroke="#AAAAAA" stroke-width="1" />
+  <path d="M28 52L36 52" stroke="#AAAAAA" stroke-width="1" />
+  <path d="M29 49L35 55" stroke="#AAAAAA" stroke-width="1" />
+  <path d="M35 49L29 55" stroke="#AAAAAA" stroke-width="1" />
+
+  <circle cx="44" cy="48" r="2" fill="#FFFFFF" stroke="#AAAAAA" />
+  <path d="M44 44L44 52" stroke="#AAAAAA" stroke-width="1" />
+  <path d="M40 48L48 48" stroke="#AAAAAA" stroke-width="1" />
+  <path d="M41 45L47 51" stroke="#AAAAAA" stroke-width="1" />
+  <path d="M47 45L41 51" stroke="#AAAAAA" stroke-width="1" />
+</svg>
