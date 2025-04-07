@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -11,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Droplets, Wind, Thermometer } from "lucide-react";
+import WeatherIcon from "./WeatherIcon";
 
 // 导入所需接口
 interface DailyForecast {
@@ -30,56 +30,23 @@ interface DailyForecast {
   wind_speed: number;
 }
 
-// 将OpenWeatherMap图标码映射到图标URL
-const getWeatherIconUrl = (iconCode: string): string => {
-  // 为了避免SVG路径问题，我们使用备选的官方图标
-  if (typeof window !== "undefined") {
-    // 客户端尝试使用自定义图标
-    const iconMap: Record<string, string> = {
-      // 晴天 (clear sky)
-      "01d": "clear-day",
-      "01n": "clear-night",
-      // 少云 (few clouds)
-      "02d": "partly-cloudy-day",
-      "02n": "partly-cloudy-night",
-      // 散云 (scattered clouds)
-      "03d": "cloudy",
-      "03n": "cloudy",
-      // 多云 (broken clouds)
-      "04d": "cloudy",
-      "04n": "cloudy",
-      // 阵雨 (shower rain)
-      "09d": "rain",
-      "09n": "rain",
-      // 小雨/中雨 (rain)
-      "10d": "rain",
-      "10n": "rain",
-      // 雷雨 (thunderstorm)
-      "11d": "thunderstorm",
-      "11n": "thunderstorm",
-      // 雪 (snow)
-      "13d": "snow",
-      "13n": "snow",
-      // 雾霾 (mist)
-      "50d": "fog",
-      "50n": "fog",
-    };
-
-    const iconName = iconMap[iconCode] || "cloudy";
-    return `/weather-icons/${iconName}.svg`;
-  } else {
-    // 服务器端渲染或自定义图标加载失败时使用官方图标
-    return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-  }
-};
-
 // Map weather conditions to background gradients for a more visual experience
 const weatherBackgrounds: Record<string, string> = {
   Clear:
     "bg-gradient-to-br from-yellow-100 to-blue-100 dark:from-blue-900 dark:to-indigo-950",
   Clouds:
     "bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900",
+  "scattered clouds":
+    "bg-gradient-to-br from-gray-200 to-blue-100 dark:from-gray-700 dark:to-blue-900",
+  "broken clouds":
+    "bg-gradient-to-br from-gray-300 to-gray-100 dark:from-gray-800 dark:to-gray-700",
+  "few clouds":
+    "bg-gradient-to-br from-blue-50 to-gray-100 dark:from-blue-950 dark:to-gray-900",
+  "overcast clouds":
+    "bg-gradient-to-br from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-800",
   Rain: "bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-950",
+  "light rain":
+    "bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-800 dark:to-blue-900",
   Snow: "bg-gradient-to-br from-blue-50 to-gray-100 dark:from-gray-800 dark:to-gray-900",
   Thunderstorm:
     "bg-gradient-to-br from-indigo-200 to-purple-200 dark:from-indigo-900 dark:to-purple-950",
@@ -97,7 +64,12 @@ const weatherBackgrounds: Record<string, string> = {
 const weatherAnimations: Record<string, string> = {
   Clear: "animate-pulse",
   Clouds: "animate-bounce",
+  "scattered clouds": "animate-bounce-slow",
+  "broken clouds": "animate-pulse-slow",
+  "few clouds": "animate-pulse",
+  "overcast clouds": "animate-pulse-slow",
   Rain: "animate-bounce",
+  "light rain": "animate-bounce",
   Snow: "animate-spin-slow",
   Thunderstorm: "animate-pulse",
   Drizzle: "animate-bounce",
@@ -139,11 +111,20 @@ export function WeatherCard({ forecast, isToday = false }: WeatherCardProps) {
   const weatherData = weather[0];
   const date = formatDate(dt);
 
-  // Choose background based on weather condition or use a default
-  const bgClass = weatherBackgrounds[weatherData.main] || "bg-card";
+  // Debug weather conditions
+  console.log("Weather condition:", weatherData.description, weatherData.icon);
 
-  // Choose animation based on weather condition or use none
-  const animationClass = weatherAnimations[weatherData.main] || "";
+  // Choose background based on weather condition or description
+  const bgClass =
+    weatherBackgrounds[weatherData.description] ||
+    weatherBackgrounds[weatherData.main] ||
+    "bg-card";
+
+  // Choose animation based on weather condition or description
+  const animationClass =
+    weatherAnimations[weatherData.description] ||
+    weatherAnimations[weatherData.main] ||
+    "";
 
   return (
     <Card
@@ -163,11 +144,10 @@ export function WeatherCard({ forecast, isToday = false }: WeatherCardProps) {
 
         <div className="relative h-24 w-24 mx-auto my-4">
           <div className={`${animationClass}`}>
-            <Image
-              src={getWeatherIconUrl(weatherData.icon)}
-              alt={weatherData.description}
-              fill
-              className="object-contain drop-shadow-md"
+            <WeatherIcon
+              iconCode={weatherData.icon}
+              description={weatherData.description}
+              className="drop-shadow-md"
             />
           </div>
         </div>

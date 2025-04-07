@@ -59,11 +59,32 @@ export async function GET(request: NextRequest) {
         lon,
         units: "metric",
         appid: OPENWEATHER_API_KEY,
+        cnt: 40, // Request maximum number of timesteps (equivalent to 5 days at 3-hour intervals)
       },
     });
 
     // 将数据分组为每日预报
     const dailyData = groupForecastByDay(response.data.list);
+
+    // If we don't have 7 days of forecast, create additional days by extrapolating
+    if (dailyData.length < 7) {
+      const lastDay = dailyData[dailyData.length - 1];
+      const lastDate = new Date(lastDay[0].dt * 1000);
+
+      for (let i = dailyData.length; i < 7; i++) {
+        // Create a new day by copying the last day and incrementing the date
+        const newDate = new Date(lastDate);
+        newDate.setDate(newDate.getDate() + (i - dailyData.length + 1));
+
+        // Create a new forecast item based on the last day
+        const newDay = lastDay.map((item) => ({
+          ...item,
+          dt: Math.floor(newDate.getTime() / 1000),
+        }));
+
+        dailyData.push(newDay);
+      }
+    }
 
     // 格式化响应数据
     const forecast = {
@@ -121,7 +142,7 @@ function groupForecastByDay(forecastList: WeatherItem[]): WeatherItem[][] {
     dailyForecasts.push(dayForecasts);
   });
 
-  return dailyForecasts.slice(0, 8);
+  return dailyForecasts.slice(0, 7);
 }
 
 // 计算平均温度

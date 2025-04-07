@@ -117,15 +117,6 @@ export function Weather() {
             <Skeleton className="h-10 w-24" />
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {Array(7)
-            .fill(0)
-            .map((_, i) => (
-              <div key={i} className="flex flex-col gap-2">
-                <Skeleton className="h-[200px] w-full rounded-lg" />
-              </div>
-            ))}
-        </div>
       </div>
     );
   }
@@ -162,7 +153,11 @@ export function Weather() {
             onChange={(e) => setSearchInput(e.target.value)}
             className="flex-1 shadow-sm"
           />
-          <Button type="submit" variant="default" className="shadow-sm">
+          <Button
+            type="submit"
+            variant="default"
+            className="shadow-sm cursor-pointer"
+          >
             <Search className="h-4 w-4 mr-2" />
             Search
           </Button>
@@ -177,7 +172,7 @@ export function Weather() {
               onClick={() => handleCityClick(cityName)}
               className={`${
                 cityName === city ? "bg-primary/20" : ""
-              } transition-all hover:scale-105`}
+              } transition-all hover:scale-105 cursor-pointer`}
             >
               <MapPin className="h-3 w-3 mr-1" />
               {cityName}
